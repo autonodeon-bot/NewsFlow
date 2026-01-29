@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  BarChart, Bar, Legend, AreaChart, Area
+  BarChart, Bar, Legend, AreaChart, Area, Cell
 } from 'recharts';
 import { AnalyticsData, CategoryStat } from '../../types';
 import { t } from '../../services/i18n';
@@ -76,7 +76,7 @@ const ChartSection: React.FC<ChartSectionProps> = ({ analyticsData, categoryStat
               <Bar dataKey="value" fill="#8b5cf6" radius={[0, 10, 10, 0]}>
                 {
                   categoryStats.map((entry, index) => (
-                    <cell key={`cell-${index}`} fill={index % 2 === 0 ? '#6366f1' : '#a855f7'} />
+                    <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#6366f1' : '#a855f7'} />
                   ))
                 }
               </Bar>
