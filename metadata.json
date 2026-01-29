@@ -1,0 +1,5 @@
+{
+  "name": "NewsFlow Platform",
+  "description": "A comprehensive news platform with a public facing news feed and a feature-rich admin dashboard containing analytics and content management tools.",
+  "requestFramePermissions": []
+}
