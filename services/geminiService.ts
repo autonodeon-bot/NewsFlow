@@ -1,14 +1,24 @@
 import { GoogleGenAI } from "@google/genai";
 import { currentLang } from "./i18n";
 
-const apiKey = process.env.API_KEY || ''; 
+const getApiKey = () => {
+  try {
+    return process.env.API_KEY;
+  } catch (e) {
+    return '';
+  }
+};
+
+const apiKey = getApiKey() || ''; 
 
 // We handle the case where key is missing gracefully in the UI
 const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 export const generateAIContent = async (title: string, category: string): Promise<string> => {
   if (!ai) {
-    throw new Error("API Key not configured");
+    return currentLang === 'ru' 
+      ? "API ключ не настроен. Пожалуйста, проверьте переменные окружения." 
+      : "API Key not configured. Please check environment variables.";
   }
 
   try {
@@ -24,13 +34,13 @@ export const generateAIContent = async (title: string, category: string): Promis
     return response.text || "Failed to generate content.";
   } catch (error) {
     console.error("Gemini Error:", error);
-    throw error;
+    return "Error generating content. Please try again later.";
   }
 };
 
 export const generateAISummary = async (content: string): Promise<string> => {
   if (!ai) {
-    throw new Error("API Key not configured");
+    return "";
   }
 
   try {
@@ -46,6 +56,6 @@ export const generateAISummary = async (content: string): Promise<string> => {
     return response.text || "Failed to generate summary.";
   } catch (error) {
     console.error("Gemini Error:", error);
-    throw error;
+    return "";
   }
 };
